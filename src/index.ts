@@ -1,4 +1,4 @@
-import 'dotenv/config'; // Adicione esta linha no início do seu arquivo
+import 'dotenv/config'; 
 import express from 'express';
 import cors from 'cors';
 
