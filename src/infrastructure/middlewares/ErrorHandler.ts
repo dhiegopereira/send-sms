@@ -10,7 +10,7 @@ export class ErrorHandler {
         res.status(status).json({
             success: false,
             message: message,
-            error: process.env.NODE_ENV === 'production' ? undefined : err.stack, // Mostra o stack trace no ambiente de desenvolvimento
+            error: process.env.NODE_ENV === 'production' ? undefined : err.stack,
         });
     }
 }
