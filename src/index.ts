@@ -3,14 +3,18 @@ import express from 'express';
 import cors from 'cors';
 import routes from './presentation/routes';
 import { ErrorHandler } from './infrastructure/middlewares/ErrorHandler';
+import { SwaggerConfig } from './infrastructure/config/Swagger';
 
 const app = express();
 const port = process.env.PORT || 3000; 
 
+SwaggerConfig.initialize(app);
 app.use(express.json());
 app.use(cors());
 app.use(routes);
 app.use(ErrorHandler.handleError);
+
+
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
