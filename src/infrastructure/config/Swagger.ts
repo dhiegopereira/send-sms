@@ -23,7 +23,7 @@ export class SwaggerConfig {
                     },
                 ],
             },
-            apis: ['D:\dhieg\Documents\Jobs\Freela\portfolio\send-sms\src\presentation\routes\smsRoutes.ts'], // Caminho para os arquivos de documentação
+            apis: ['D:\dhieg\Documents\Jobs\Freela\portfolio\send-sms\src\presentation\routes\smsRoutes.ts'],
         };
 
         this.specs = swaggerJsdoc(options);
