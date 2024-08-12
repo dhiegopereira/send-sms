@@ -1,4 +1,3 @@
-// src/routes/smsRoutes.ts
 import { NextFunction, Request, Response, Router } from 'express';
 import { SmsController } from '../controllers/SmsController';
 import SmsService from '../../application/services/SmsService';
