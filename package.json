@@ -17,11 +17,21 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "send-sms": "file:",
-    "twilio": "^5.2.2"
+    "sqlite3": "^5.1.7",
+    "twilio": "^5.2.2",
+    "typeorm": "^0.3.20",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
-    "@types/node": "^22.2.0"
+    "@types/jest": "^29.5.12",
+    "@types/lowdb": "^1.0.15",
+    "@types/node": "^22.2.0",
+    "@types/supertest": "^6.0.2",
+    "jest": "^29.7.0",
+    "lowdb": "^7.0.1",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.4"
   }
 }
