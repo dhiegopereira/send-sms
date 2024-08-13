@@ -47,14 +47,18 @@ Aqui está um exemplo de como configurar e usar a Twilio para enviar SMS:
 
 ```typescript
 import twilio from 'twilio';
-import { ISmsRepository } from "../../repositories/ISmsRepository";
 import { SmsRequestDto, SmsResponseDto } from "../../../application/dto/SmsDto";
-import { SmsEntity } from '../../entities/SmsEntity';
+import SmsEntity from '../../entities/SmsEntity';
+import { inject, injectable } from 'tsyringe';
+import { SmsRepository } from '../../../infrastructure/persistence/SmsRepository';
 
-export default class SendSmsUseCase {
+@injectable()
+export default class SmsSendUseCase {
     private readonly clientTwilio;
 
-    constructor(private smsRepository: ISmsRepository) {
+    constructor(
+        @inject('SmsRepository') private readonly smsRepository: SmsRepository
+    ) {
         this.clientTwilio = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
     }
 
