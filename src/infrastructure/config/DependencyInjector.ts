@@ -1,7 +1,7 @@
 import { container } from 'tsyringe';
-import { SmsRepository } from '../persistence/SmsRepository';
+import SmsRepository from '../persistence/SmsRepository';
 import SmsService from '../../application/services/SmsService';
-import { SmsController } from '../../presentation/controllers/SmsController';
+import SmsController from '../../presentation/controllers/SmsController';
 import SmsUseCase from '../../domain/useCases/SmsUseCase';
 
 //#region SMS
