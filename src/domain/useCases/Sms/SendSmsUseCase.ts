@@ -11,11 +11,11 @@ export default class SendSmsUseCase {
     }
 
     async execute(smsRequestDto: SmsRequestDto): Promise<SmsResponseDto> {
-        const message = await this.clientTwilio.messages.create({
-            body: smsRequestDto.body,
-            from: process.env.TWILIO_PHONE_NUMBER ?? 'DEFAULT_PHONE_NUMBER',
-            to: smsRequestDto.to,
-        });
+        // const message = await this.clientTwilio.messages.create({
+        //     body: smsRequestDto.body,
+        //     from: process.env.TWILIO_PHONE_NUMBER ?? 'DEFAULT_PHONE_NUMBER',
+        //     to: smsRequestDto.to,
+        // });
 
         const smsEntity = new SmsEntity(process.env.TWILIO_PHONE_NUMBER ?? 'DEFAULT_PHONE_NUMBER',
             smsRequestDto.to,

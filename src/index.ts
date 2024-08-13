@@ -8,7 +8,9 @@ import { SwaggerConfig } from './infrastructure/config/Swagger';
 const app = express();
 const port = process.env.PORT || 3000; 
 
-SwaggerConfig.initialize(app);
+const swaggerConfig = new SwaggerConfig();
+swaggerConfig.initialize(app);
+
 app.use(express.json());
 app.use(cors());
 app.use(routes);

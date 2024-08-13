@@ -1,15 +1,13 @@
-// src/config/SwaggerConfig.ts
 import swaggerJsdoc, { Options } from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { Express } from 'express';
 
 export class SwaggerConfig {
-    private static specs: any;
+    private readonly specs: any;
+    private readonly options: Options;
 
-    private constructor() {}
-
-    public static initialize(app: Express): void {
-        const options: Options = {
+    constructor() {
+        this.options = {
             definition: {
                 openapi: '3.0.0',
                 info: {
@@ -24,11 +22,12 @@ export class SwaggerConfig {
                     },
                 ],
             },
-            apis: ['D:\dhieg\Documents\Jobs\Freela\portfolio\send-sms\src\presentation\routes\smsRoutes.ts'], // Caminho para os arquivos de documentação
+            apis: ['./src/presentation/routes/*.ts'],
         };
+        this.specs = swaggerJsdoc(this.options);
+    }
 
-        this.specs = swaggerJsdoc(options);
-
+    public initialize(app: Express): void {
         app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(this.specs));
     }
 }
