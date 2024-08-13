@@ -87,7 +87,3 @@ export default class SmsSendUseCase {
 - [Twilio Console](https://www.twilio.com/console)
 - [Documentação da API Twilio](https://www.twilio.com/docs/sms)
 - [Preços e Planos da Twilio](https://www.twilio.com/pricing)
-
----
-
-Adicione essas informações ao seu README para que qualquer pessoa que estiver configurando o envio de SMS com a Twilio possa seguir facilmente.
