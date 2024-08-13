@@ -1,7 +1,3 @@
-Aqui está um passo a passo que você pode adicionar ao seu README para configurar o envio de SMS usando a Twilio:
-
----
-
 ## Envio de SMS pela [Twilio](https://admin.twilio.com/)
 
 ### Passo a Passo
