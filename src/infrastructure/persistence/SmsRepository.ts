@@ -3,9 +3,10 @@ import SmsEntity from '../../domain/entities/SmsEntity';
 import { SmsResponseDto } from "../../application/dto/SmsDto";
 import Database from '../config/Database';
 import { injectable } from 'tsyringe';
+import ISmsRepository from './ISmsRepository';
 
 @injectable()
-export class SmsRepository {
+export class SmsRepository implements ISmsRepository {
     private repository: Repository<SmsEntity> | undefined;
 
     constructor() {

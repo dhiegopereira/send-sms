@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction  } from 'express';
-import SmsService from '../../application/services/SmsService';
 import { inject, injectable } from 'tsyringe';
+import ISmsService from '../../application/services/ISmsService';
 
 @injectable()
 export class SmsController {
     constructor(
-        @inject('SmsService') private readonly smsService: SmsService
+        @inject('SmsService') private readonly smsService: ISmsService
     ) { }
 
     async sendSms(req: Request, res: Response, next: NextFunction) {

@@ -1,20 +1,19 @@
 import { inject, injectable } from 'tsyringe';
-import SmsListUseCase from '../../domain/useCases/Sms/SmsListUseCase';
-import SmsSendUseCase from '../../domain/useCases/Sms/SmsSendUseCase';
 import { SmsRequestDto, SmsResponseDto } from '../dto/SmsDto';
+import ISmsService from './ISmsService';
+import { ISmsUseCase } from '../../domain/useCases/ISmsUseCase';
 
 @injectable()
-export default class SmsService {
+export default class SmsService implements ISmsService{
     constructor(
-        @inject('SmsSendUseCase') private readonly sendSmsUseCase: SmsSendUseCase,
-        @inject('SmsListUseCase') private readonly listSmsUseCase: SmsListUseCase
+        @inject('SmsSendUseCase') private readonly smsUseCase: ISmsUseCase,
     ) {}
 
     public async sendSms(smsRequest: SmsRequestDto): Promise<SmsResponseDto> {
-       return this.sendSmsUseCase.execute(smsRequest);
+       return this.smsUseCase.sendSms(smsRequest);
     }
 
     public async listSms(phoneNumber: string): Promise<SmsResponseDto[]> {
-        return this.listSmsUseCase.execute(phoneNumber);
+        return this.smsUseCase.listSms(phoneNumber);
     }
 }
