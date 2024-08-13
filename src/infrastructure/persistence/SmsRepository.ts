@@ -6,7 +6,7 @@ import { injectable } from 'tsyringe';
 import ISmsRepository from './ISmsRepository';
 
 @injectable()
-export class SmsRepository implements ISmsRepository {
+export default class SmsRepository implements ISmsRepository {
     private repository: Repository<SmsEntity> | undefined;
 
     constructor() {

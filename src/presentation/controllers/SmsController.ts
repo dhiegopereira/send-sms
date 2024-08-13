@@ -3,7 +3,7 @@ import { inject, injectable } from 'tsyringe';
 import ISmsService from '../../application/services/ISmsService';
 
 @injectable()
-export class SmsController {
+export default class SmsController {
     constructor(
         @inject('SmsService') private readonly smsService: ISmsService
     ) { }
