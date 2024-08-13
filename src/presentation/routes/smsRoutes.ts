@@ -1,19 +1,9 @@
 import { NextFunction, Request, Response, Router } from 'express';
+import container from '../../infrastructure/config/DependencyInjector';
 import { SmsController } from '../controllers/SmsController';
-import SmsService from '../../application/services/SmsService';
-import { ListSmsUseCase, SendSmsUseCase } from '../../domain/useCases/Sms';
-import { SmsRepository } from '../../infrastructure/persistence/SmsRepository';
-
-const smsRepository = new SmsRepository();
-
-const sendSmsUseCase = new SendSmsUseCase(smsRepository);
-const listSmsUseCase = new ListSmsUseCase(smsRepository);
-
-const smsService = new SmsService(sendSmsUseCase, listSmsUseCase);
-
-const smsController = new SmsController(smsService);
 
 const router = Router();
+const smsController = container.resolve<SmsController>('SmsController');
 
 /**
  * @swagger
@@ -59,6 +49,7 @@ const router = Router();
  *         description: Internal server error
  */
 router.get('/:phoneNumber', (req: Request, res: Response, next: NextFunction) => smsController.listSms(req, res, next));
+
 
 /**
  * @swagger

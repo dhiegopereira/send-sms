@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { SmsEntity } from '../../domain/entities/SmsEntity';
+import SmsEntity from '../../domain/entities/SmsEntity';
 
 export default class Database {
     private static appDataSource: DataSource;

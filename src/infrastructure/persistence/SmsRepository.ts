@@ -1,10 +1,11 @@
 import { Repository } from 'typeorm';
-import { SmsEntity } from '../../domain/entities/SmsEntity';
+import SmsEntity from '../../domain/entities/SmsEntity';
 import { SmsResponseDto } from "../../application/dto/SmsDto";
-import { ISmsRepository } from "../../domain/repositories/ISmsRepository";
 import Database from '../config/Database';
+import { injectable } from 'tsyringe';
 
-export class SmsRepository implements ISmsRepository {
+@injectable()
+export class SmsRepository {
     private repository: Repository<SmsEntity> | undefined;
 
     constructor() {
@@ -21,7 +22,7 @@ export class SmsRepository implements ISmsRepository {
             if (!this.repository) {
                 throw new Error('Repository not initialized');
             }
-            
+
             console.log('Saving SMS:', smsEntity);
             await this.repository.save(smsEntity);
             return true;
@@ -36,7 +37,7 @@ export class SmsRepository implements ISmsRepository {
             if (!this.repository) {
                 throw new Error('Repository not initialized');
             }
-            
+
             const smsList = await this.repository.find({ where: { to: phoneNumber } });
             return smsList.map((sms: SmsEntity) => ({
                 from: sms.from,

@@ -1,10 +1,13 @@
+import { inject, injectable } from 'tsyringe';
+import SmsListUseCase from '../../domain/useCases/Sms/SmsListUseCase';
+import SmsSendUseCase from '../../domain/useCases/Sms/SmsSendUseCase';
 import { SmsRequestDto, SmsResponseDto } from '../dto/SmsDto';
-import { ListSmsUseCase, SendSmsUseCase } from '../../domain/useCases/Sms';
 
-class SmsService {
+@injectable()
+export default class SmsService {
     constructor(
-        private readonly sendSmsUseCase: SendSmsUseCase,
-        private readonly listSmsUseCase: ListSmsUseCase
+        @inject('SmsSendUseCase') private readonly sendSmsUseCase: SmsSendUseCase,
+        @inject('SmsListUseCase') private readonly listSmsUseCase: SmsListUseCase
     ) {}
 
     public async sendSms(smsRequest: SmsRequestDto): Promise<SmsResponseDto> {
@@ -15,5 +18,3 @@ class SmsService {
         return this.listSmsUseCase.execute(phoneNumber);
     }
 }
-
-export default SmsService;

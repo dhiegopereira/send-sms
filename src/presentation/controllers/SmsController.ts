@@ -1,10 +1,14 @@
 import { Request, Response, NextFunction  } from 'express';
 import SmsService from '../../application/services/SmsService';
+import { inject, injectable } from 'tsyringe';
 
+@injectable()
 export class SmsController {
-    constructor(private readonly smsService: SmsService) { }
+    constructor(
+        @inject('SmsService') private readonly smsService: SmsService
+    ) { }
 
-    async sendSms(req: Request, res: Response, next: NextFunction): Promise<void> {
+    async sendSms(req: Request, res: Response, next: NextFunction) {
         try {
             const { body, to } = req.body;
             const response = await this.smsService.sendSms({ body, to });
@@ -14,7 +18,7 @@ export class SmsController {
         }
     }
 
-    async listSms(req: Request, res: Response, next: NextFunction): Promise<void> {
+    async listSms(req: Request, res: Response, next: NextFunction) {
         try {
             const { phoneNumber } = req.params;
             const response = await this.smsService.listSms(phoneNumber);
