@@ -43,25 +43,37 @@ TWILIO_PHONE_NUMBER=seu_numero_de_telefone_twilio_aqui
 
 Aqui está um exemplo de como configurar e usar a Twilio para enviar SMS:
 
-**Arquivo `smsService.ts`:**
+**Classe `SendSmsuseCase.ts`:**
 
 ```typescript
 import twilio from 'twilio';
-import { SmsOptions } from '../models/SmsOptions';
+import { ISmsRepository } from "../../repositories/ISmsRepository";
+import { SmsRequestDto, SmsResponseDto } from "../../../application/dto/SmsDto";
+import { SmsEntity } from '../../entities/SmsEntity';
 
-const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+export default class SendSmsUseCase {
+    private readonly clientTwilio;
 
-export const send = async (options: SmsOptions): Promise<string> => {
-    try {
-        const message = await client.messages.create({
-            body: options.body,
-            from: process.env.TWILIO_PHONE_NUMBER,
-            to: options.to,
+    constructor(private smsRepository: ISmsRepository) {
+        this.clientTwilio = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+    }
+
+    async execute(smsRequestDto: SmsRequestDto): Promise<SmsResponseDto> {
+        await this.clientTwilio.messages.create({
+            body: smsRequestDto.body,
+            from: process.env.TWILIO_PHONE_NUMBER ?? 'DEFAULT_PHONE_NUMBER',
+            to: smsRequestDto.to,
         });
-        return `Message sent with SID: ${message.sid}`;
-    } catch (error) {
-        console.error('Failed to send SMS:', error);
-        throw error;
+
+        const smsEntity = new SmsEntity(process.env.TWILIO_PHONE_NUMBER ?? 'DEFAULT_PHONE_NUMBER',
+            smsRequestDto.to,
+            smsRequestDto.body,
+            'Ok',
+            new Date());
+
+        await this.smsRepository.SaveSms(smsEntity);
+
+        return smsEntity as SmsResponseDto;
     }
 }
 ```
