@@ -43,7 +43,7 @@ TWILIO_PHONE_NUMBER=seu_numero_de_telefone_twilio_aqui
 
 Aqui está um exemplo de como configurar e usar a Twilio para enviar SMS:
 
-**Classe `SendSmsuseCase.ts`:**
+**Classe `SmsSendUseCase.ts`:**
 
 ```typescript
 import twilio from 'twilio';
