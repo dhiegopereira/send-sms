@@ -22,7 +22,7 @@ export class SwaggerConfig {
                     },
                 ],
             },
-            apis: ['./src/presentation/routes/*.ts'],
+            apis: ['./src/web/routes/*.ts'],
         };
         this.specs = swaggerJsdoc(this.options);
     }

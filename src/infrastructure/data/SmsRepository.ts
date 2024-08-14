@@ -1,24 +1,22 @@
 import { Repository } from 'typeorm';
-import SmsEntity from '../../domain/entities/SmsEntity';
-import { SmsResponseDto } from "../../application/dto/SmsDto";
-import Database from '../config/Database';
-import { injectable } from 'tsyringe';
-import ISmsRepository from './ISmsRepository';
+import SmsEntity from '../../core/entities/SmsEntity';
+import TypeORMConfig from '../frameworks/TypeORMConfig';
+import { inject, injectable } from 'tsyringe';
+import ISmsRepository from '../../core/interfaces/ISmsRepository';
+import { SmsPresenter } from '../../adapters/presentation/SmsPresenter';
 
 @injectable()
 export default class SmsRepository implements ISmsRepository {
     private repository: Repository<SmsEntity> | undefined;
 
-    constructor() {
-        Database.initialize().then(() => {
-            this.repository = Database.getDataSource().getRepository(SmsEntity);
-        }).catch(error => {
-            console.error('Error initializing repository:', error);
-            throw error;
-        });
+    constructor(
+        @inject('TypeORMConfig') private readonly typeORMConfig: TypeORMConfig
+    ) {
+        this.repository = typeORMConfig.getDataSource().getRepository(SmsEntity);
+
     }
 
-    async SaveSms(smsEntity: SmsEntity): Promise<boolean> {
+    async save(smsEntity: SmsEntity): Promise<boolean> {
         try {
             if (!this.repository) {
                 throw new Error('Repository not initialized');
@@ -33,20 +31,14 @@ export default class SmsRepository implements ISmsRepository {
         }
     }
 
-    async ListSms(phoneNumber: string): Promise<SmsResponseDto[]> {
+    async findByPhoneNumber(phoneNumber: string): Promise<ReturnType<typeof SmsPresenter.presentManyResponses>> {
         try {
             if (!this.repository) {
                 throw new Error('Repository not initialized');
             }
 
             const smsList = await this.repository.find({ where: { to: phoneNumber } });
-            return smsList.map((sms: SmsEntity) => ({
-                from: sms.from,
-                to: sms.to,
-                body: sms.body,
-                status: sms.status,
-                createdAt: sms.createdAt,
-            }));
+            return SmsPresenter.presentManyResponses(smsList);
         } catch (error) {
             console.error('Error listing SMS:', error);
             return [];

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
-import container from '../../infrastructure/config/DependencyInjector';
-import { SmsController } from '../controllers/SmsController';
+import container from '../../infrastructure/config/container';
+import SmsController from '../../adapters/controllers/SmsController';
 
 const router = Router();
 const smsController = container.resolve<SmsController>('SmsController');
