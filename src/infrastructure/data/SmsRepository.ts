@@ -7,27 +7,22 @@ import { SmsPresenter } from '../../adapters/presentation/SmsPresenter';
 
 @injectable()
 export default class SmsRepository implements ISmsRepository {
-    private repository: Repository<SmsEntity> | undefined;
+    private repository: Repository<SmsEntity>;
 
     constructor(
-        @inject('TypeORMConfig') private readonly typeORMConfig: TypeORMConfig
+        @inject('TypeORMConfig') private readonly typeORMConfig: TypeORMConfig,
     ) {
         this.repository = typeORMConfig.getDataSource().getRepository(SmsEntity);
-
     }
 
-    async save(smsEntity: SmsEntity): Promise<boolean> {
+    async save(smsEntity: SmsEntity): Promise<SmsEntity> {
         try {
             if (!this.repository) {
                 throw new Error('Repository not initialized');
             }
-
-            console.log('Saving SMS:', smsEntity);
-            await this.repository.save(smsEntity);
-            return true;
-        } catch (error) {
-            console.error('Error saving SMS:', error);
-            return false;
+            return await this.repository.save(smsEntity);
+        } catch (error: any) {
+            throw new Error(`Error saving entity: ${error.message}`);
         }
     }
 
@@ -38,9 +33,9 @@ export default class SmsRepository implements ISmsRepository {
             }
 
             const smsList = await this.repository.find({ where: { to: phoneNumber } });
+
             return SmsPresenter.presentManyResponses(smsList);
         } catch (error) {
-            console.error('Error listing SMS:', error);
             return [];
         }
     }

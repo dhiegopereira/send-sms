@@ -13,24 +13,22 @@ export default class SmsSendUseCase {
 
     async execute(request: { to: string, body: string }): Promise<{ from: string, to: string, body: string, status: string, createdAt: Date }> {
         const presentedRequest = SmsPresenter.presentRequest(request);
-        // await this.twilioDriver.sendMessage(
-        //     presentedRequest.to,
-        //     presentedRequest.body,
-        //     process.env.TWILIO_PHONE_NUMBER ?? 'DEFAULT_PHONE_NUMBER'
-        // );
+        await this.twilioDriver.sendMessage(
+            presentedRequest.to,
+            presentedRequest.body,
+            process.env.TWILIO_PHONE_NUMBER ?? 'DEFAULT_PHONE_NUMBER'
+        );
 
         const smsEntity = new SmsEntity(
             process.env.TWILIO_PHONE_NUMBER ?? 'DEFAULT_PHONE_NUMBER',
             presentedRequest.to,
             presentedRequest.body,
-            'Ok',
+            'sent',
             new Date()
         );
 
-        await this.smsRepository.save(smsEntity);
+        const result = await this.smsRepository.save(smsEntity);
 
-        const presentedResponse = SmsPresenter.presentResponse(smsEntity);
-
-        return presentedResponse;
+        return SmsPresenter.presentResponse(result);
     }
 }

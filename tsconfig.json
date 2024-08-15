@@ -9,19 +9,13 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./",
+    "types": ["jest", "node"]
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
-  "baseUrl": "./src",
+  "include": ["src/**/*.ts", "test/**/*.ts"],
+  "exclude": ["node_modules", "dist"],
+  "baseUrl": "./",
   "paths": {
-    "*": [
-      "*",
-      "src/*"
-    ]
+    "*": ["*", "src/*", "test/*"]
   }
 }

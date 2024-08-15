@@ -9,7 +9,6 @@ export default class TypeORMConfig {
     constructor() {
         if (!TypeORMConfig.appDataSource) {
             this.initialize().catch(error => {
-                console.error('Error initializing TypeORMConfig:', error);
                 throw error;
             });
         }
@@ -25,9 +24,7 @@ export default class TypeORMConfig {
 
         try {
             await TypeORMConfig.appDataSource.initialize();
-            console.log('TypeORMConfig connection established');
         } catch (error) {
-            console.error('Error initializing TypeORMConfig:', error);
             throw error;
         }
     }

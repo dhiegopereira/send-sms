@@ -15,7 +15,7 @@ export default class SmsController {
         try {
             const { body, to } = req.body;
             const response = await this.smsSendUseCase.execute({ body, to });
-            res.status(200).json(SmsPresenter.presentResponse(response));
+            return res.status(200).json(SmsPresenter.presentResponse(response));
         } catch (error) {
             next(error);
         }
@@ -25,7 +25,7 @@ export default class SmsController {
         try {
             const { phoneNumber } = req.params;
             const responses = await this.smsListUseCase.execute(phoneNumber);
-            res.status(200).json(SmsPresenter.presentManyResponses(responses));
+            return res.status(200).json(SmsPresenter.presentManyResponses(responses));
         } catch (error) {
             next(error);
         }

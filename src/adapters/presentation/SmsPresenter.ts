@@ -8,6 +8,7 @@ export class SmsPresenter {
     }
 
     static presentResponse(response: any): { from: string, to: string, body: string, status: string, createdAt: Date } {
+        if (!response) return {} as any;
         return {
             from: response.from,
             to: response.to,
@@ -18,6 +19,7 @@ export class SmsPresenter {
     }
 
     static presentManyResponses(responses: any[]): { from: string, to: string, body: string, status: string, createdAt: Date }[] {
+        if (!responses) return [];
         return responses.map(response => this.presentResponse(response));
     }
 }

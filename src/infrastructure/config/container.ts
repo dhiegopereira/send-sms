@@ -19,6 +19,7 @@ container.registerSingleton<TwilioDriver>('TwilioDriver', TwilioDriver);
 
 //#region TypeORM
 container.registerSingleton<TypeORMConfig>('TypeORMConfig', TypeORMConfig);
+
 //#endregion
 
 export default container;
