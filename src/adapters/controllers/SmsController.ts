@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { inject, injectable } from 'tsyringe';
-import { SmsPresenter } from '../../adapters/presentation/SmsPresenter';
 import SmsListUseCase from '../../core/useCases/sms/SmsListUseCase';
 import SmsSendUseCase from '../../core/useCases/sms/SmsSendUseCase';
+import { SmsPresenter } from '../presenters/SmsPresenter';
 
 @injectable()
 export default class SmsController {
