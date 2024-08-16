@@ -5,23 +5,23 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 @injectable()
 @Entity('sms')
 export default class SmsEntity {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('increment')
     id!: number;
 
     @Column({ type: 'varchar', nullable: true })
-    from!: string;
+    from: string;
 
     @Column({ type: 'varchar', nullable: true })
-    to!: string;
+    to: string;
 
     @Column({ type: 'varchar', nullable: true })
-    body!: string;
+    body: string;
 
     @Column({ type: 'varchar', nullable: true })
-    status!: MessageStatus;
+    status: MessageStatus;
 
     @Column({ type: 'date', nullable: true })
-    createdAt!: Date;
+    createdAt: Date;
 
     constructor(from: string, to: string, body: string, status: MessageStatus, createdAt: Date) {
         this.from = from;

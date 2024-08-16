@@ -15,7 +15,7 @@ export default class SmsRepository implements ISmsRepository {
         this.repository = typeORMConfig.getDataSource().getRepository(SmsEntity);
     }
 
-    async save(smsEntity: SmsEntity): Promise<SmsEntity> {
+    async save(smsEntity: SmsEntity): Promise<ReturnType<typeof SmsPresenter.presentResponse>> {
         try {
             if (!this.repository) {
                 throw new Error('Repository not initialized');

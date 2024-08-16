@@ -2,7 +2,7 @@ import { inject, injectable } from "tsyringe";
 import ISmsRepository from "../../interfaces/ISmsRepository";
 import TwilioDriver from "../../../infrastructure/drivers/TwilioDriver";
 import SmsEntity from "../../entities/SmsEntity";
-import { SmsPresenter } from "../../../adapters/presentation/SmsPresenter";
+import { SmsPresenter, SmsRequest, SmsResponse } from "../../../adapters/presentation/SmsPresenter";
 
 @injectable()
 export default class SmsSendUseCase {
@@ -11,9 +11,9 @@ export default class SmsSendUseCase {
         @inject('TwilioDriver') private readonly twilioDriver: TwilioDriver
     ) {}
 
-    async execute(request: { to: string, body: string }): Promise<{ from: string, to: string, body: string, status: string, createdAt: Date }> {
-        const presentedRequest = SmsPresenter.presentRequest(request);
-        await this.twilioDriver.sendMessage(
+    async execute(smsResquest: SmsRequest): Promise<SmsResponse> {
+        const presentedRequest = SmsPresenter.presentRequest(smsResquest);
+        const message = await this.twilioDriver.sendMessage(
             presentedRequest.to,
             presentedRequest.body,
             process.env.TWILIO_PHONE_NUMBER ?? 'DEFAULT_PHONE_NUMBER'
@@ -23,8 +23,8 @@ export default class SmsSendUseCase {
             process.env.TWILIO_PHONE_NUMBER ?? 'DEFAULT_PHONE_NUMBER',
             presentedRequest.to,
             presentedRequest.body,
-            'sent',
-            new Date()
+            message.status,
+            message.dateSent 
         );
 
         const result = await this.smsRepository.save(smsEntity);

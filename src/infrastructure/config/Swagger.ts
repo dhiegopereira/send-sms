@@ -2,9 +2,32 @@ import swaggerJsdoc, { Options } from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { Express } from 'express';
 
+interface DocumentationParams {
+    method: 'get' | 'post' | 'put' | 'delete';
+    path: string;
+    summary: string;
+    description?: string;
+    parameters?: any[];
+    requestBody?: {
+        contentType: string;
+        schema: any;
+    };
+    responses?: {
+        [statusCode: number]: {
+            description: string;
+            content?: {
+                [contentType: string]: {
+                    schema: any;
+                };
+            };
+        };
+    };
+}
+
 export class SwaggerConfig {
-    private readonly specs: any;
+    private specs: any;
     private readonly options: Options;
+    private documentation: string[] = [];
 
     constructor() {
         this.options = {
@@ -22,7 +45,7 @@ export class SwaggerConfig {
                     },
                 ],
             },
-            apis: ['./src/web/routes/*.ts'],
+            apis: ['./src/web/routes/*.ts'], // Ajuste o caminho conforme necessário
         };
         this.specs = swaggerJsdoc(this.options);
     }

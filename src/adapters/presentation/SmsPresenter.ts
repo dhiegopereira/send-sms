@@ -1,25 +1,37 @@
+export type SmsRequest = {
+    to: string;
+    body: string;
+};
+
+export type SmsResponse = {
+    from: string;
+    to: string;
+    body: string;
+    status: string;
+    createdAt: Date;
+};
+
 export class SmsPresenter {
 
-    static presentRequest(request: any): { to: string, body: string } {
+    static presentRequest(smsRequest: SmsRequest): { to: string, body: string } {
+        const { to, body } = smsRequest;
+        return { to, body };
+    }
+
+    static presentResponse(smsResponse: SmsResponse): SmsResponse {
+        if (!smsResponse) return {} as any;
+
         return {
-            to: request.to,
-            body: request.body
+            from: smsResponse.from,
+            to: smsResponse.to,
+            body: smsResponse.body,
+            status: smsResponse.status,
+            createdAt: smsResponse.createdAt
         };
     }
 
-    static presentResponse(response: any): { from: string, to: string, body: string, status: string, createdAt: Date } {
-        if (!response) return {} as any;
-        return {
-            from: response.from,
-            to: response.to,
-            body: response.body,
-            status: response.status,
-            createdAt: new Date(response.createdAt)
-        };
-    }
-
-    static presentManyResponses(responses: any[]): { from: string, to: string, body: string, status: string, createdAt: Date }[] {
-        if (!responses) return [];
-        return responses.map(response => this.presentResponse(response));
+    static presentManyResponses(smsResponse: SmsResponse[]): SmsResponse[] {
+        if (!smsResponse) return [];
+        return smsResponse.map(sms => this.presentResponse(sms));
     }
 }
