@@ -5,7 +5,7 @@ import ISmsRepository from "../../interfaces/ISmsRepository";
 @injectable()
 export default class SmsListUseCase {
     constructor(
-        @inject('SmsRepository') private readonly smsRepository: ISmsRepository,
+        @inject('SmsRepository') private readonly smsRepository: ISmsRepository
     ) { }
 
     async execute(phoneNumber: string): Promise<SmsEntity[]> {

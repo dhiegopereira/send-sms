@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
-import container from '../../infrastructure/config/container';
 import SmsController from '../../adapters/controllers/SmsController';
+import container from '../../container';
 
 const router = Router();
 const smsController = container.resolve<SmsController>('SmsController');

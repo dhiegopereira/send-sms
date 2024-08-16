@@ -36,4 +36,3 @@ export default class TypeORMConfig {
         return TypeORMConfig.appDataSource;
     }
 }
-

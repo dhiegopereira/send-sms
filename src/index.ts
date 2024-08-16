@@ -4,14 +4,14 @@ import express from 'express';
 import cors from 'cors';
 import routes from './web/routes';
 import { ErrorHandler } from './web/middlewares/ErrorHandler';
-import { SwaggerConfig } from './infrastructure/config/Swagger';
-import e from 'express';
+import container from './container';
+import Swagger from './web/routes/Swagger';
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-const swaggerConfig = new SwaggerConfig();
-swaggerConfig.initialize(app);
+const swagger = container.resolve<Swagger>('Swagger');
+swagger.setup(app);
 
 app.use(express.json());
 app.use(cors());
