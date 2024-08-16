@@ -1,9 +1,10 @@
 import { injectable } from 'tsyringe';
 import twilio, { Twilio } from 'twilio';
 import { MessageInstance } from 'twilio/lib/rest/api/v2010/account/message';
+import ITwilioDriver from '../../core/interfaces/ITwilioDriver';
 
 @injectable()
-export default class TwilioDriver {
+export default class TwilioDriver implements ITwilioDriver {
     private readonly clientTwilio: Twilio;
 
     constructor() {

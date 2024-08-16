@@ -1,7 +1,6 @@
-import SmsEntity from '../entities/SmsEntity';
-import { SmsPresenter } from '../../adapters/presentation/SmsPresenter';
+import SmsEntity from "../entities/SmsEntity";
 
-export default interface ISmsRepository {   
-    save(smsEntity: SmsEntity): Promise<ReturnType<typeof SmsPresenter.presentResponse>>;
-    findByPhoneNumber(phoneNumber: string): Promise<ReturnType<typeof SmsPresenter.presentManyResponses>>;
+export default interface ISmsRepository {
+    save(sms: any): Promise<SmsEntity>;
+    findByPhoneNumber(phoneNumber: string): Promise<SmsEntity[]>;
 }

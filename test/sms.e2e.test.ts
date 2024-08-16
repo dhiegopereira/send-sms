@@ -1,11 +1,11 @@
 import request from 'supertest';
 import { app, server } from '../src/index';
-import SmsRepository from '../src/infrastructure/data/SmsRepository';
 import TwilioDriver from '../src/infrastructure/drivers/TwilioDriver';
 import { MessageInstance } from 'twilio/lib/rest/api/v2010/account/message';
+import SmsRepository from '../src/infrastructure/repositories/SmsRepository';
 
 jest.mock('../src/infrastructure/drivers/TwilioDriver');
-jest.mock('../src/infrastructure/data/SmsRepository');
+jest.mock('../src/infrastructure/repositories/SmsRepository');
 
 describe('SMS UseCases E2E Tests', () => {
 
@@ -16,6 +16,7 @@ describe('SMS UseCases E2E Tests', () => {
   it('should send an SMS successfully', async () => {
     const saveSpy = jest.spyOn(SmsRepository.prototype, 'save');
     saveSpy.mockResolvedValue({
+      id: 1,
       from: '5511888888888',
       to: '5511999999999',
       body: 'Test SMS',
@@ -53,6 +54,7 @@ describe('SMS UseCases E2E Tests', () => {
     const findByPhoneNumberSpy = jest.spyOn(SmsRepository.prototype, 'findByPhoneNumber');
     findByPhoneNumberSpy.mockResolvedValue([
       {
+        id: 1,
         from: '5511888888888',
         to: '5511999999999',
         body: 'Test SMS',

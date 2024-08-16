@@ -1,15 +1,16 @@
 import { inject, injectable } from "tsyringe";
-import { SmsPresenter } from "../../../adapters/presentation/SmsPresenter";
+import SmsEntity from "../../entities/SmsEntity";
 import ISmsRepository from "../../interfaces/ISmsRepository";
 
 @injectable()
 export default class SmsListUseCase {
     constructor(
-        @inject('SmsRepository') private readonly smsRepository: ISmsRepository
-    ) {}
+        @inject('SmsRepository') private readonly smsRepository: ISmsRepository,
+    ) { }
 
-    async execute(phoneNumber: string): Promise<ReturnType<typeof SmsPresenter.presentManyResponses>> {
-        const smsEntities = await this.smsRepository.findByPhoneNumber(phoneNumber);
-        return SmsPresenter.presentManyResponses(smsEntities);
+    async execute(phoneNumber: string): Promise<SmsEntity[]> {
+        return await this.smsRepository.findByPhoneNumber(phoneNumber);
     }
 }
+
+

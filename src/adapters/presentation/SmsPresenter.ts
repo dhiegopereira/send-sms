@@ -1,9 +1,9 @@
-export type SmsRequest = {
+type SmsRequest = {
     to: string;
     body: string;
 };
 
-export type SmsResponse = {
+type SmsResponse = {
     from: string;
     to: string;
     body: string;

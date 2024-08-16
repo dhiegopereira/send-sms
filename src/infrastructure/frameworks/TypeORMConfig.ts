@@ -1,4 +1,4 @@
-import { inject, injectable } from 'tsyringe';
+import { injectable } from 'tsyringe';
 import { DataSource } from 'typeorm';
 import SmsEntity from '../../core/entities/SmsEntity';
 
