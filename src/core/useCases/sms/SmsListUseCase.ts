@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
-import SmsEntity from "../../entities/SmsEntity";
 import ISmsRepository from "../../interfaces/ISmsRepository";
+import SmsEntity from "../../entities/SmsEntity";
 
 @injectable()
 export default class SmsListUseCase {

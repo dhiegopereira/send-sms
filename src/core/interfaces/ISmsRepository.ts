@@ -1,4 +1,4 @@
-import SmsEntity from "../entities/SmsEntity";
+import SmsEntity from "../../core/entities/SmsEntity";
 
 export default interface ISmsRepository {
     save(sms: any): Promise<SmsEntity>;

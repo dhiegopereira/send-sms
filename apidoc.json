@@ -1,0 +1,10 @@
+{
+  "name": "Send SMS API",
+  "version": "1.0.0",
+  "description": "Documentação da API para o envio de SMS",
+  "title": "Send SMS API Documentation",
+  "url": "http://localhost:3000",
+  "template": {
+    "forceLanguage": "pt"
+  }
+}

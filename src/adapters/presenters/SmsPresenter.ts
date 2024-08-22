@@ -1,24 +1,9 @@
-type SmsRequest = {
-    to: string;
-    body: string;
-};
-
-type SmsResponse = {
-    from: string;
-    to: string;
-    body: string;
-    status: string;
-    createdAt: Date;
-};
+import { SmsResponseDTO } from "../dto/SmsDTO";
 
 export class SmsPresenter {
 
-    static presentRequest(smsRequest: SmsRequest): { to: string, body: string } {
-        const { to, body } = smsRequest;
-        return { to, body };
-    }
 
-    static presentResponse(smsResponse: SmsResponse): SmsResponse {
+    static presentResponse(smsResponse: SmsResponseDTO): SmsResponseDTO {
         if (!smsResponse) return {} as any;
 
         return {
@@ -30,7 +15,7 @@ export class SmsPresenter {
         };
     }
 
-    static presentManyResponses(smsResponse: SmsResponse[]): SmsResponse[] {
+    static presentManyResponses(smsResponse: SmsResponseDTO[]): SmsResponseDTO[] {
         if (!smsResponse) return [];
         return smsResponse.map(sms => this.presentResponse(sms));
     }

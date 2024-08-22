@@ -1,8 +1,8 @@
 import { Repository } from "typeorm";
 import SmsEntity from "../../core/entities/SmsEntity";
-import ISmsRepository from "../../core/interfaces/ISmsRepository";
 import TypeORM from "../frameworks/TypeORM";
 import { inject, injectable } from "tsyringe";
+import ISmsRepository from "../../core/interfaces/ISmsRepository";
 
 @injectable()
 export default class SmsRepository implements ISmsRepository {

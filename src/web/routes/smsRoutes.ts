@@ -50,7 +50,6 @@ const smsController = container.resolve<SmsController>('SmsController');
  */
 router.get('/:phoneNumber', (req: Request, res: Response, next: NextFunction) => smsController.listSms(req, res, next));
 
-
 /**
  * @swagger
  * /sms:

@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
-import SmsEntity from "../../entities/SmsEntity";
 import ITwilioDriver from "../../interfaces/ITwilioDriver";
 import ISmsRepository from "../../interfaces/ISmsRepository";
+import SmsEntity from "../../entities/SmsEntity";
 
 @injectable()
 export default class SmsSendUseCase {
