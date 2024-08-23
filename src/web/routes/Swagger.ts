@@ -1,16 +1,13 @@
 import swaggerJsDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { Application } from 'express';
-import { OpenAPIV3 } from 'openapi-types';
-import { injectable } from 'tsyringe';
 
-type Parameter = { [key: string]: any }; @injectable()
 export default class Swagger {
     private options = {
         definition: {
             openapi: '3.0.0',
             info: {
-                title: 'Envio de SMS',
+                title: 'Send SMS API',
                 version: '1.0.0',
                 description: 'Aplicação para envio de SMS usando Twilio',
                 contact: {
@@ -35,6 +32,6 @@ export default class Swagger {
 
     public setup(app: Application): void {
         const specs = swaggerJsDoc(this.options);
-        app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+        app.use('/swagger', swaggerUi.serve, swaggerUi.setup(specs));
     }
 }
